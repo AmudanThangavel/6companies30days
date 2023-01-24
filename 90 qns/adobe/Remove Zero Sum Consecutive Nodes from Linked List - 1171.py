@@ -27,7 +27,9 @@ class Solution:
             add = arr[i]
             j = i + 1
             include = True
-            if add
+            if add == 0:
+                i += 1
+                continue
             while j < l:
 
                 if add + arr[j] == 0:
