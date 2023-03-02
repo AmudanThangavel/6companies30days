@@ -1,11 +1,16 @@
-class Solution:
+class Solution(object):
     def findKthNumber(self, n, k):
-        if n < 10:
-            return k
-        dic = {i: 1 for i in range(1, 10)}
-
-
-obj = Solution()
-testcases = [[13, 2], [1, 1], [47, 23]]
-for t in testcases:
-    print(obj.findKthNumber(t[0], t[1]))
+        result = 1
+        while k > 1:
+            count = 0
+            interval = [result, result+1]
+            while interval[0] <= n:
+                count += min(n+1, interval[1]) - interval[0]
+                interval = [interval[0]*10, interval[1]*10]
+            if k > count:
+                k -= count
+                result += 1
+            else:
+                k -= 1
+                result *= 10
+        return result

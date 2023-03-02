@@ -1,19 +1,12 @@
 class Solution:
-    def check(self, freq):
-        for i in range(freq.values()):
-            pass
-
     def numberOfSubstrings(self, s: str) -> int:
-        count = 0
-        l = len(s)
-        if l == 3:
-            return 1
-        one = 0
-        two = 1
-        s = set()
-        freq = {"a": 0, "b": 0, "c": 0}
-        while two < l:
-            pass
+
+        charIndex, output = {'a': -1, 'b': -1, 'c': -1}, 0
+        for i in range(len(s)):
+            charIndex[s[i]] = i
+            output += min(charIndex.values())+1
+
+        return output
 
 
 obj = Solution()

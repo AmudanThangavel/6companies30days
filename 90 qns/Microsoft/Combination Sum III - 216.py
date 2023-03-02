@@ -1,32 +1,19 @@
 class Solution:
-    def dfs(self, k, n, i, ls, res):
-        pass
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        ans = []
 
-    def combinationSum3(self, k, n):
-        result = []
-        ls = [i for i in range(1, k+1)]
-        ind = [1 for i in range(k)]
-        s = sum(ls)
-        if s < n:
-            return []
-        elif s == n:
-            return[ls]
-        for i in range(ls[-1]+1, 10):
-            ls[-1] = i
-            s += 1
-            if s == n:
-                result.append(ls)
-            print(ls)
+        def dfs(k: int, n: int, s: int, path: List[int]) -> None:
+            if k == 0 and n == 0:
+                ans.append(path)
+                return
+            if k == 0 or n < 0:
+                return
 
-        i = k - 2
-        while i > 0:
-            res = self.dfs(k, n, i, ls, [])
-            for r in res:
-                result.append(r)
-            i -= 1
+            for i in range(s, 10):
+                dfs(k - 1, n - i, i + 1, path + [i])
 
-            pass
-        return result
+        dfs(k, n, 1, [])
+        return ans
 
 
 obj = Solution()

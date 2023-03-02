@@ -1,7 +1,23 @@
+from sortedcontainers import SortedList
+
+
 class Solution:
-    def numberOfPairs(self, nums1, nums2, diff):
-        
-        pass
+    def numberOfPairs(self, nums1: List[int], nums2: List[int], diff: int) -> int:
+
+        previous_diffs = SortedList()
+
+        result = 0
+        for idx, (num1, num2) in enumerate(zip(nums1, nums2)):
+
+            difference = num1-num2
+            cmp_value = difference + diff
+
+            if previous_diffs:
+                lower = previous_diffs.bisect_right(cmp_value)
+                result += lower
+
+            minimal_diff = previous_diffs.add(difference)
+        return result
 
 
 obj = Solution()

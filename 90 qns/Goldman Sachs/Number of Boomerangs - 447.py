@@ -1,26 +1,14 @@
 class Solution:
-    def point_distance(self, p1, p2):
-        return ((p1[0] - p2[0])**2) + ((p1[1] - p2[1])**2)
+    def numberOfBoomerangs(self, points: List[List[int]]) -> int:
+        ans = 0
 
-    def boomerang(self, dic):
-        result = 0
-        for key in dic.keys():
-            if key != "0" and dic[key] > 1:
-                result = dic[key] * (dic[key] - 1)
-        return result
+        for x1, y1 in points:
+            count = collections.defaultdict(int)
+            for x2, y2 in points:
+                ans += 2 * count[(x1 - x2)**2 + (y1 - y2)**2]
+                count[(x1 - x2)**2 + (y1 - y2)**2] += 1
 
-    def numberOfBoomerangs(self, points):
-        result = 0
-        for i in range(len(points)):
-            temp = {}
-            for j in range(len(points)):
-                dist = str(self.point_distance(points[i], points[j]))
-                if dist in temp:
-                    temp[dist] += 1
-                else:
-                    temp[dist] = 1
-            result += self.boomerang(temp)
-        return result
+        return ans
 
 
 obj = Solution()

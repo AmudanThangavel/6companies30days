@@ -1,22 +1,24 @@
 class Solution:
-    def largestDivisibleSubset(self, nums):
-        self.dp = []
-        return constructLDS(nums, self.dp, getLDS[1])
-
-    def getLDS(self, nums, dp):
-        nums = sorted(nums)
-        self.dp = [1 for i in range(len(nums))]
-        idssize = 1
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        if len(nums) == 1:
+            return nums
+        nums = sorted(nums, reverse=False)
+        dp = [1 for i in range(0, len(nums))]
+        cnt = -1
         for i in range(1, len(nums)):
-            for j in range(i):
+            for j in range(i-1, -1, -1):
                 if nums[i] % nums[j] == 0:
-                    self.dp[i] = max(self.dp[i], self.dp[j] + 1)
-                    idssize = max(idssize, self.dp[i])
-        return idssize
+                    dp[i] = max(dp[i], dp[j]+1)
+            cnt = max(cnt, dp[i])
+        res = []
+        pivot = -1
+        for i in range(len(nums)-1, -1, -1):
+            if dp[i] == cnt and (pivot == -1 or pivot % nums[i] == 0):
+                pivot = nums[i]
+                res.append(nums[i])
+                cnt -= 1
 
-    def constructLDS(nums, dp, idssize):
-        prev = -1
-        ids = []
+        return res
 
 
 obj = Solution()
